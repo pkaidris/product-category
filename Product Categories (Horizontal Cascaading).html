@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progressive Selection UI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .panel {
+            transition: all 0.3s ease;
+            min-height: 400px;
+        }
+        .panel-item {
+            transition: all 0.2s ease;
+        }
+        .panel-item:hover {
+            background-color: #f3f4f6;
+        }
+        .panel-item.active {
+            background-color: #e5e7eb;
+            border-left: 3px solid #3b82f6;
+        }
+        .breadcrumb-item:not(:last-child)::after {
+            content: ">";
+            margin: 0 8px;
+            color: #6b7280;
+        }
+        @media (max-width: 768px) {
+            .panels-container {
+                flex-direction: column;
+            }
+            .panel {
+                width: 100% !important;
+                min-height: auto;
+                border-right: none !important;
+                border-bottom: 1px solid #e5e7eb;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">Product Explorer</h1>
+        
+        <!-- Breadcrumb Navigation -->
+        <div class="breadcrumbs flex items-center text-sm text-gray-600 mb-6 overflow-x-auto whitespace-nowrap py-2">
+            <span class="breadcrumb-item">Home</span>
+        </div>
+        
+        <!-- Main Panels Container -->
+        <div class="panels-container flex flex-nowrap bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+            <!-- Panel A - Categories -->
+            <div class="panel w-64 border-r border-gray-200" id="panel-a">
+                <div class="panel-header bg-gray-50 px-4 py-3 border-b border-gray-200">
+                    <h2 class="font-medium text-gray-700">Categories</h2>
+                </div>
+                <div class="panel-content divide-y divide-gray-100">
+                    <div class="panel-item px-4 py-3 cursor-pointer" data-id="1" data-name="Clothing">
+                        <div class="flex items-center">
+                            <i class="fas fa-tshirt text-blue-500 mr-3"></i>
+                            <span>Clothing</span>
+                        </div>
+                    </div>
+                    <div class="panel-item px-4 py-3 cursor-pointer" data-id="2" data-name="Electronics">
+                        <div class="flex items-center">
+                            <i class="fas fa-laptop text-green-500 mr-3"></i>
+                            <span>Electronics</span>
+                        </div>
+                    </div>
+                    <div class="panel-item px-4 py-3 cursor-pointer" data-id="3" data-name="Furniture">
+                        <div class="flex items-center">
+                            <i class="fas fa-couch text-purple-500 mr-3"></i>
+                            <span>Furniture</span>
+                        </div>
+                    </div>
+                    <div class="panel-item px-4 py-3 cursor-pointer" data-id="4" data-name="Books">
+                        <div class="flex items-center">
+                            <i class="fas fa-book text-yellow-500 mr-3"></i>
+                            <span>Books</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Panel B - Subcategories (initially hidden) -->
+            <div class="panel w-64 border-r border-gray-200 hidden" id="panel-b">
+                <div class="panel-header bg-gray-50 px-4 py-3 border-b border-gray-200 flex items-center">
+                    <button class="back-btn mr-2 text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <h2 class="font-medium text-gray-700">Subcategories</h2>
+                </div>
+                <div class="panel-content divide-y divide-gray-100">
+                    <!-- Content will be loaded dynamically -->
+                </div>
+            </div>
+            
+            <!-- Panel C - Types (initially hidden) -->
+            <div class="panel w-64 border-r border-gray-200 hidden" id="panel-c">
+                <div class="panel-header bg-gray-50 px-4 py-3 border-b border-gray-200 flex items-center">
+                    <button class="back-btn mr-2 text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <h2 class="font-medium text-gray-700">Types</h2>
+                </div>
+                <div class="panel-content divide-y divide-gray-100">
+                    <!-- Content will be loaded dynamically -->
+                </div>
+            </div>
+            
+            <!-- Panel D - Variations (initially hidden) -->
+            <div class="panel w-64 border-r border-gray-200 hidden" id="panel-d">
+                <div class="panel-header bg-gray-50 px-4 py-3 border-b border-gray-200 flex items-center">
+                    <button class="back-btn mr-2 text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <h2 class="font-medium text-gray-700">Variations</h2>
+                </div>
+                <div class="panel-content divide-y divide-gray-100">
+                    <!-- Content will be loaded dynamically -->
+                </div>
+            </div>
+            
+            <!-- Panel E - Details (initially hidden) -->
+            <div class="panel flex-1 hidden" id="panel-e">
+                <div class="panel-header bg-gray-50 px-4 py-3 border-b border-gray-200 flex items-center">
+                    <button class="back-btn mr-2 text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <h2 class="font-medium text-gray-700">Product Details</h2>
+                </div>
+                <div class="panel-content p-6">
+                    <!-- Content will be loaded dynamically -->
+                    <div class="product-details">
+                        <div class="text-center py-10 text-gray-400">
+                            <i class="fas fa-info-circle text-4xl mb-3"></i>
+                            <p>Select a product variation to see details</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample data structure
+        const data = {
+            categories: {
+                1: { name: "Clothing", icon: "fa-tshirt", color: "blue" },
+                2: { name: "Electronics", icon: "fa-laptop", color: "green" },
+                3: { name: "Furniture", icon: "fa-couch", color: "purple" },
+                4: { name: "Books", icon: "fa-book", color: "yellow" }
+            },
+            subcategories: {
+                1: [
+                    { id: 11, name: "Men" },
+                    { id: 12, name: "Women" },
+                    { id: 13, name: "Kids" }
+                ],
+                2: [
+                    { id: 21, name: "Computers" },
+                    { id: 22, name: "Phones" },
+                    { id: 23, name: "TVs" }
+                ],
+                3: [
+                    { id: 31, name: "Living Room" },
+                    { id: 32, name: "Bedroom" },
+                    { id: 33, name: "Office" }
+                ],
+                4: [
+                    { id: 41, name: "Fiction" },
+                    { id: 42, name: "Non-Fiction" },
+                    { id: 43, name: "Educational" }
+                ]
+            },
+            types: {
+                11: [
+                    { id: 111, name: "Shirts" },
+                    { id: 112, name: "Pants" },
+                    { id: 113, name: "Jackets" }
+                ],
+                12: [
+                    { id: 121, name: "Dresses" },
+                    { id: 122, name: "Tops" },
+                    { id: 123, name: "Skirts" }
+                ],
+                21: [
+                    { id: 211, name: "Laptops" },
+                    { id: 212, name: "Desktops" },
+                    { id: 213, name: "Accessories" }
+                ],
+                22: [
+                    { id: 221, name: "Smartphones" },
+                    { id: 222, name: "Tablets" },
+                    { id: 223, name: "Wearables" }
+                ],
+                31: [
+                    { id: 311, name: "Sofas" },
+                    { id: 312, name: "Chairs" },
+                    { id: 313, name: "Tables" }
+                ],
+                41: [
+                    { id: 411, name: "Science Fiction" },
+                    { id: 412, name: "Fantasy" },
+                    { id: 413, name: "Mystery" }
+                ]
+            },
+            variations: {
+                111: [
+                    { id: 1111, name: "Casual" },
+                    { id: 1112, name: "Formal" },
+                    { id: 1113, name: "Sports" }
+                ],
+                112: [
+                    { id: 1121, name: "Jeans" },
+                    { id: 1122, name: "Chinos" },
+                    { id: 1123, name: "Sweatpants" }
+                ],
+                211: [
+                    { id: 2111, name: "Gaming" },
+                    { id: 2112, name: "Business" },
+                    { id: 2113, name: "Ultrabooks" }
+                ],
+                221: [
+                    { id: 2211, name: "Android" },
+                    { id: 2212, name: "iOS" },
+                    { id: 2213, name: "Other" }
+                ],
+                311: [
+                    { id: 3111, name: "Leather" },
+                    { id: 3112, name: "Fabric" },
+                    { id: 3113, name: "Recliner" }
+                ],
+                411: [
+                    { id: 4111, name: "Dystopian" },
+                    { id: 4112, name: "Space Opera" },
+                    { id: 4113, name: "Cyberpunk" }
+                ]
+            },
+            products: {
+                1111: {
+                    name: "Casual Men's Shirt",
+                    description: "Comfortable cotton shirt perfect for everyday wear. Available in multiple colors and sizes.",
+                    price: "$29.99",
+                    rating: "4.5"
+                },
+                1121: {
+                    name: "Men's Jeans",
+                    description: "Classic fit jeans made with durable denim. Five-pocket styling with button fly.",
+                    price: "$49.99",
+                    rating: "4.7"
+                },
+                2111: {
+                    name: "Gaming Laptop",
+                    description: "High-performance gaming laptop with RGB keyboard, 144Hz display, and powerful GPU.",
+                    price: "$1,299.99",
+                    rating: "4.8"
+                },
+                2211: {
+                    name: "Android Smartphone",
+                    description: "Latest Android smartphone with triple camera system, 128GB storage, and all-day battery.",
+                    price: "$699.99",
+                    rating: "4.6"
+                },
+                3111: {
+                    name: "Leather Sofa",
+                    description: "Premium genuine leather sofa with reclining function and built-in cup holders.",
+                    price: "$1,199.99",
+                    rating: "4.9"
+                },
+                4111: {
+                    name: "Dystopian Novel",
+                    description: "Bestselling dystopian novel exploring themes of society and technology.",
+                    price: "$14.99",
+                    rating: "4.7"
+                }
+            }
+        };
+
+        // Track selection path
+        let selectionPath = [];
+        
+        // DOM elements
+        const panels = {
+            a: document.getElementById('panel-a'),
+            b: document.getElementById('panel-b'),
+            c: document.getElementById('panel-c'),
+            d: document.getElementById('panel-d'),
+            e: document.getElementById('panel-e')
+        };
+        
+        const breadcrumbs = document.querySelector('.breadcrumbs');
+        
+        // Initialize event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Panel A items
+            document.querySelectorAll('#panel-a .panel-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    const name = this.getAttribute('data-name');
+                    selectCategory(id, name);
+                });
+            });
+            
+            // Back buttons
+            document.querySelectorAll('.back-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    goBack();
+                });
+            });
+        });
+        
+        // Handle category selection
+        function selectCategory(id, name) {
+            // Update UI
+            document.querySelectorAll('#panel-a .panel-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+            
+            // Update selection path
+            selectionPath = [{id, name, level: 'a'}];
+            updateBreadcrumbs();
+            
+            // Load subcategories
+            loadPanel('b', data.subcategories[id], 'subcategory');
+            
+            // Show panel B
+            panels.b.classList.remove('hidden');
+            
+            // Hide other panels
+            panels.c.classList.add('hidden');
+            panels.d.classList.add('hidden');
+            panels.e.classList.add('hidden');
+        }
+        
+        // Load data into a panel
+        function loadPanel(panelId, items, itemType) {
+            const panel = document.querySelector(`#panel-${panelId} .panel-content`);
+            panel.innerHTML = '';
+            
+            items.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'panel-item px-4 py-3 cursor-pointer';
+                div.setAttribute('data-id', item.id);
+                div.setAttribute('data-name', item.name);
+                
+                div.innerHTML = `
+                    <div class="flex items-center">
+                        <i class="fas fa-${getIcon(item.id)} text-${getColor(item.id)}-500 mr-3"></i>
+                        <span>${item.name}</span>
+                    </div>
+                `;
+                
+                div.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    const name = this.getAttribute('data-name');
+                    
+                    // Update selection path
+                    const level = panelId;
+                    selectionPath.push({id, name, level});
+                    updateBreadcrumbs();
+                    
+                    // Clear active state from all items in this panel
+                    document.querySelectorAll(`#panel-${panelId} .panel-item`).forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    // Set active state for selected item
+                    this.classList.add('active');
+                    
+                    // Determine next panel to show
+                    if (panelId === 'b') {
+                        loadPanel('c', data.types[id], 'type');
+                        panels.c.classList.remove('hidden');
+                        panels.d.classList.add('hidden');
+                        panels.e.classList.add('hidden');
+                    } else if (panelId === 'c') {
+                        loadPanel('d', data.variations[id], 'variation');
+                        panels.d.classList.remove('hidden');
+                        panels.e.classList.add('hidden');
+                    } else if (panelId === 'd') {
+                        loadProductDetails(id);
+                        panels.e.classList.remove('hidden');
+                    }
+                });
+                
+                panel.appendChild(div);
+            });
+        }
+        
+        // Load product details
+        function loadProductDetails(id) {
+            const product = data.products[id];
+            const detailsContainer = document.querySelector('#panel-e .product-details');
+            
+            if (product) {
+                detailsContainer.innerHTML = `
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="md:w-1/3 bg-gray-100 rounded-lg flex items-center justify-center p-6">
+                            <i class="fas fa-${getIcon(id)} text-6xl text-${getColor(id)}-500"></i>
+                        </div>
+                        <div class="md:w-2/3">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-2">${product.name}</h3>
+                            <div class="flex items-center mb-4">
+                                <div class="flex text-yellow-400 mr-2">
+                                    ${Array(Math.floor(parseFloat(product.rating))).fill('<i class="fas fa-star"></i>').join('')}
+                                    ${product.rating % 1 !== 0 ? '<i class="fas fa-star-half-alt"></i>' : ''}
+                                </div>
+                                <span class="text-gray-600">${product.rating}/5.0</span>
+                            </div>
+                            <p class="text-gray-700 mb-4">${product.description}</p>
+                            <div class="text-xl font-bold text-blue-600 mb-6">${product.price}</div>
+                            <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md transition">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                `;
+            } else {
+                detailsContainer.innerHTML = `
+                    <div class="text-center py-10 text-gray-400">
+                        <i class="fas fa-info-circle text-4xl mb-3"></i>
+                        <p>No details available for this product</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // Update breadcrumbs
+        function updateBreadcrumbs() {
+            breadcrumbs.innerHTML = '<span class="breadcrumb-item">Home</span>';
+            
+            selectionPath.forEach(item => {
+                const crumb = document.createElement('span');
+                crumb.className = 'breadcrumb-item cursor-pointer hover:text-blue-600';
+                crumb.textContent = item.name;
+                crumb.addEventListener('click', () => navigateTo(item.level));
+                breadcrumbs.appendChild(crumb);
+            });
+        }
+        
+        // Navigate to specific level
+        function navigateTo(level) {
+            const index = selectionPath.findIndex(item => item.level === level);
+            if (index >= 0) {
+                selectionPath = selectionPath.slice(0, index + 1);
+                
+                // Show the target panel and hide others
+                Object.keys(panels).forEach(key => {
+                    if (key === level) {
+                        panels[key].classList.remove('hidden');
+                    } else if (key > level) {
+                        panels[key].classList.add('hidden');
+                    }
+                });
+                
+                // Reload data if needed
+                if (level === 'b') {
+                    loadPanel('b', data.subcategories[selectionPath[0].id], 'subcategory');
+                } else if (level === 'c') {
+                    loadPanel('c', data.types[selectionPath[1].id], 'type');
+                } else if (level === 'd') {
+                    loadPanel('d', data.variations[selectionPath[2].id], 'variation');
+                }
+                
+                updateBreadcrumbs();
+            }
+        }
+        
+        // Go back one level
+        function goBack() {
+            if (selectionPath.length > 0) {
+                selectionPath.pop();
+                updateBreadcrumbs();
+                
+                if (selectionPath.length === 0) {
+                    // Back to home
+                    panels.b.classList.add('hidden');
+                    panels.c.classList.add('hidden');
+                    panels.d.classList.add('hidden');
+                    panels.e.classList.add('hidden');
+                    document.querySelectorAll('#panel-a .panel-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                } else {
+                    const lastItem = selectionPath[selectionPath.length - 1];
+                    navigateTo(lastItem.level);
+                }
+            }
+        }
+        
+        // Helper functions
+        function getIcon(id) {
+            if (id.toString().startsWith('1')) return 'tshirt';
+            if (id.toString().startsWith('2')) return 'laptop';
+            if (id.toString().startsWith('3')) return 'couch';
+            if (id.toString().startsWith('4')) return 'book';
+            return 'tag';
+        }
+        
+        function getColor(id) {
+            if (id.toString().startsWith('1')) return 'blue';
+            if (id.toString().startsWith('2')) return 'green';
+            if (id.toString().startsWith('3')) return 'purple';
+            if (id.toString().startsWith('4')) return 'yellow';
+            return 'gray';
+        }
+    </script>
+</body>
+</html>
