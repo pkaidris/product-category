@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crust Personal App - Savings Plans</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        
+        .plan-card {
+            transition: all 0.3s ease;
+        }
+        
+        .plan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .select-btn {
+            transition: all 0.2s ease;
+        }
+        
+        .select-btn:hover {
+            transform: scale(1.02);
+        }
+        
+        .select-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .badge {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(234, 88, 12, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(234, 88, 12, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(234, 88, 12, 0);
+            }
+        }
+        
+        .card-entrance {
+            animation: cardEntrance 0.5s ease-out forwards;
+        }
+        
+        @keyframes cardEntrance {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-50">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Header -->
+        <header class="text-center mb-10">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Save with Crust</h1>
+            <p class="text-lg text-gray-600 max-w-lg mx-auto">Choose a savings plan that suits your financial goals.</p>
+        </header>
+        
+        <!-- Savings Plans Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <!-- Flexible Savings Card -->
+            <div class="plan-card bg-white rounded-xl shadow-md overflow-hidden card-entrance" style="animation-delay: 0.1s">
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800">Flexible Savings</h3>
+                            <p class="text-gray-500 text-sm mt-1">Set money aside for short-term needs</p>
+                        </div>
+                        <span class="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded-full">Popular</span>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span class="text-gray-700">Withdraw anytime</span>
+                        </div>
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span class="text-gray-700">No penalties</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-50 rounded-lg p-4 mb-6">
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-600">Interest Rate</span>
+                            <span class="text-2xl font-bold text-blue-600">9% <span class="text-sm font-normal">p.a.</span></span>
+                        </div>
+                        <div class="text-xs text-gray-500 mt-1 flex items-center">
+                            <i class="fas fa-info-circle mr-1"></i>
+                            <span>Calculated daily, paid monthly</span>
+                        </div>
+                    </div>
+                    
+                    <button class="select-btn w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 rounded-lg font-medium">
+                        Select Plan
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Locked Savings Card -->
+            <div class="plan-card bg-white rounded-xl shadow-md overflow-hidden card-entrance" style="animation-delay: 0.2s">
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800">Locked Savings</h3>
+                            <p class="text-gray-500 text-sm mt-1">Build saving discipline with locked funds</p>
+                        </div>
+                        <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Best Returns</span>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span class="text-gray-700">Higher interest rates</span>
+                        </div>
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span class="text-gray-700">No withdrawals until maturity</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-50 rounded-lg p-4 mb-6">
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-600">Interest Rate</span>
+                            <span class="text-2xl font-bold text-blue-600">9% – 16% <span class="text-sm font-normal">p.a.</span></span>
+                        </div>
+                        <div class="text-xs text-gray-500 mt-1 flex items-center">
+                            <i class="fas fa-info-circle mr-1"></i>
+                            <span>Higher rates for longer terms</span>
+                        </div>
+                    </div>
+                    
+                    <button class="select-btn w-full bg-blue-500 hover:bg-blue-600 text-white py-3 px-4 rounded-lg font-medium">
+                        Select Plan
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Fixed Savings Card -->
+            <div class="plan-card bg-white rounded-xl shadow-md overflow-hidden card-entrance" style="animation-delay: 0.3s">
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800">Fixed Savings</h3>
+                            <p class="text-gray-500 text-sm mt-1">Commit a lump sum for maximum returns</p>
+                        </div>
+                        <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full">Long Term</span>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span class="text-gray-700">Highest returns</span>
+                        </div>
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span class="text-gray-700">Fixed terms from 3-24 months</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-50 rounded-lg p-4 mb-6">
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-600">Interest Rate</span>
+                            <span class="text-2xl font-bold text-blue-600">9% – 16% <span class="text-sm font-normal">p.a.</span></span>
+                        </div>
+                        <div class="text-xs text-gray-500 mt-1 flex items-center">
+                            <i class="fas fa-info-circle mr-1"></i>
+                            <span>Rates increase with term length</span>
+                        </div>
+                    </div>
+                    
+                    <button class="select-btn w-full bg-gray-800 hover:bg-gray-900 text-white py-3 px-4 rounded-lg font-medium">
+                        Select Plan
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Additional Info -->
+        <div class="bg-white rounded-xl shadow-sm p-6 mb-8 card-entrance" style="animation-delay: 0.4s">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">How to choose the right plan?</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="flex items-start">
+                    <div class="bg-blue-100 p-2 rounded-full mr-3">
+                        <i class="fas fa-piggy-bank text-blue-500"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-medium text-gray-800">Flexible Savings</h4>
+                        <p class="text-sm text-gray-500">Ideal for emergency funds or short-term goals</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <div class="bg-orange-100 p-2 rounded-full mr-3">
+                        <i class="fas fa-lock text-orange-500"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-medium text-gray-800">Locked Savings</h4>
+                        <p class="text-sm text-gray-500">Best for medium-term goals (3-12 months)</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <div class="bg-purple-100 p-2 rounded-full mr-3">
+                        <i class="fas fa-chart-line text-purple-500"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-medium text-gray-800">Fixed Savings</h4>
+                        <p class="text-sm text-gray-500">Maximize returns for long-term goals</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- FAQ Section -->
+        <div class="bg-white rounded-xl shadow-sm p-6 card-entrance" style="animation-delay: 0.5s">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">Frequently Asked Questions</h3>
+            <div class="space-y-4">
+                <div class="border-b border-gray-100 pb-4">
+                    <button class="faq-toggle flex justify-between items-center w-full text-left">
+                        <span class="font-medium text-gray-800">How are interest rates calculated?</span>
+                        <i class="fas fa-chevron-down text-gray-400 transition-transform duration-200"></i>
+                    </button>
+                    <div class="faq-content hidden mt-2 text-gray-600">
+                        <p>Interest is calculated daily based on your account balance and paid monthly. For locked and fixed savings, the rate depends on the term length you choose.</p>
+                    </div>
+                </div>
+                <div class="border-b border-gray-100 pb-4">
+                    <button class="faq-toggle flex justify-between items-center w-full text-left">
+                        <span class="font-medium text-gray-800">Can I withdraw from locked savings early?</span>
+                        <i class="fas fa-chevron-down text-gray-400 transition-transform duration-200"></i>
+                    </button>
+                    <div class="faq-content hidden mt-2 text-gray-600">
+                        <p>No, locked savings cannot be withdrawn before the maturity date. This allows us to offer higher interest rates compared to flexible savings.</p>
+                    </div>
+                </div>
+                <div class="border-b border-gray-100 pb-4">
+                    <button class="faq-toggle flex justify-between items-center w-full text-left">
+                        <span class="font-medium text-gray-800">Are my savings insured?</span>
+                        <i class="fas fa-chevron-down text-gray-400 transition-transform duration-200"></i>
+                    </button>
+                    <div class="faq-content hidden mt-2 text-gray-600">
+                        <p>Yes, all savings with Crust are insured up to $250,000 per depositor through our partner banks.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Selected Plan Modal -->
+    <div id="planModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl max-w-md w-full mx-4 p-6 animate-scale">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold text-gray-800" id="modalPlanName">Plan Selected</h3>
+                <button id="closeModal" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <p class="text-gray-600 mb-6">You've selected the <span class="font-medium" id="modalPlanType">Flexible Savings</span> plan with <span class="font-medium" id="modalPlanRate">9% p.a.</span> interest rate.</p>
+            <div class="bg-blue-50 rounded-lg p-4 mb-6">
+                <h4 class="font-medium text-gray-700 mb-2">Next Steps:</h4>
+                <ol class="list-decimal list-inside text-sm text-gray-600 space-y-1">
+                    <li>Set up your savings goal</li>
+                    <li>Choose funding source</li>
+                    <li>Confirm your selection</li>
+                </ol>
+            </div>
+            <div class="flex space-x-3">
+                <button class="flex-1 border border-gray-300 text-gray-700 py-2 px-4 rounded-lg font-medium hover:bg-gray-50">
+                    Learn More
+                </button>
+                <button class="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg font-medium">
+                    Continue
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Plan selection functionality
+        document.querySelectorAll('.select-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const card = this.closest('.plan-card');
+                const planName = card.querySelector('h3').textContent;
+                const interestRate = card.querySelector('.text-2xl').textContent;
+                
+                document.getElementById('modalPlanName').textContent = planName;
+                document.getElementById('modalPlanType').textContent = planName;
+                document.getElementById('modalPlanRate').textContent = interestRate;
+                
+                document.getElementById('planModal').classList.remove('hidden');
+            });
+        });
+        
+        // Close modal
+        document.getElementById('closeModal').addEventListener('click', function() {
+            document.getElementById('planModal').classList.add('hidden');
+        });
+        
+        // FAQ toggle functionality
+        document.querySelectorAll('.faq-toggle').forEach(button => {
+            button.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                const icon = this.querySelector('i');
+                
+                content.classList.toggle('hidden');
+                icon.classList.toggle('transform');
+                icon.classList.toggle('rotate-180');
+            });
+        });
+        
+        // Modal animation
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add scale animation class
+            const modalInner = document.querySelector('#planModal > div');
+            modalInner.classList.add('animate-scale');
+            
+            // Remove it after animation completes
+            modalInner.addEventListener('animationend', () => {
+                modalInner.classList.remove('animate-scale');
+            });
+        });
+    </script>
+</body>
+</html>
