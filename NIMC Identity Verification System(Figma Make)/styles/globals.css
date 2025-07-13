@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+  /* NIMC Theme Colors */
+  --nimc-primary: #2E62FF;
+  --nimc-secondary: #242549;
+  --nimc-text: #585B8B;
+  --nimc-dark: #0A111F;
+  --nimc-success: #10B981;
+  --nimc-error: #EF4444;
+  --nimc-warning: #F59E0B;
+  
+  /* Utility colors */
+  --background: #FFFFFF;
+  --foreground: var(--nimc-dark);
+  --card: #FFFFFF;
+  --card-foreground: var(--nimc-dark);
+  --popover: #FFFFFF;
+  --popover-foreground: var(--nimc-dark);
+  --primary: var(--nimc-primary);
+  --primary-foreground: #FFFFFF;
+  --secondary: #F1F5F9;
+  --secondary-foreground: var(--nimc-secondary);
+  --muted: #F8FAFC;
+  --muted-foreground: var(--nimc-text);
+  --accent: #F1F5F9;
+  --accent-foreground: var(--nimc-secondary);
+  --destructive: var(--nimc-error);
+  --destructive-foreground: #FFFFFF;
+  --border: #E2E8F0;
+  --input: #E2E8F0;
+  --ring: var(--nimc-primary);
+  --radius: 0.5rem;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: hsl(var(--foreground));
+  background: hsl(var(--background));
+}
